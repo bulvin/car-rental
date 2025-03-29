@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental", "CarRental\CarRental.csproj", "{0F7A7BB4-082F-4AFD-9FEF-6BA99A45E231}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D576CB9-013B-4DD5-90AC-EBA8BD470707}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F7A7BB4-082F-4AFD-9FEF-6BA99A45E231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F7A7BB4-082F-4AFD-9FEF-6BA99A45E231}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F7A7BB4-082F-4AFD-9FEF-6BA99A45E231}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F7A7BB4-082F-4AFD-9FEF-6BA99A45E231}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
