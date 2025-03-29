@@ -8,6 +8,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{2B4ADE78-FC27-4FB6-A269-530BA2070C88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,11 @@ Global
 		{0F7A7BB4-082F-4AFD-9FEF-6BA99A45E231}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F7A7BB4-082F-4AFD-9FEF-6BA99A45E231}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F7A7BB4-082F-4AFD-9FEF-6BA99A45E231}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B4ADE78-FC27-4FB6-A269-530BA2070C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B4ADE78-FC27-4FB6-A269-530BA2070C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B4ADE78-FC27-4FB6-A269-530BA2070C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B4ADE78-FC27-4FB6-A269-530BA2070C88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal
