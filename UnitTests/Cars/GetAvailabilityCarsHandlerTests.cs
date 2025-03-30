@@ -28,7 +28,7 @@ public class GetAvailabilityCarsHandlerTests
         var carId1 = Guid.NewGuid();
         var carId2 = Guid.NewGuid();
 
-        var testLocation = new Location { Id = locationId, Name = "Palma Airport" };
+        var testLocation = new Location { Id = locationId, Name = "Test Location" };
 
         var cars = new List<Car>
         {

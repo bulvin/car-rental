@@ -18,7 +18,8 @@ public class CarConfiguration : IEntityTypeConfiguration<Car>
                 .HasMaxLength(30)
                 .IsRequired();
 
-            m.Ignore(carModel => carModel.PassengerCapacity);
+            m.Property(carModel => carModel.PassengerCapacity)
+                .IsRequired();
         });
 
         builder.Property(c => c.Color)

@@ -20,13 +20,16 @@ public sealed class GetAvailabilityCars : IQueryHandler<GetAvailabilityCarsQuery
     }
     public async Task<List<AvailabilityCarResponse>> Handle(GetAvailabilityCarsQuery request, CancellationToken cancellationToken)
     {
+        var requestReturnDate = request.EndDate.ToUniversalTime();
+        var pickupDate = request.StartDate.ToUniversalTime();
+        
         var query = _context.Cars
             .Include(c => c.CurrentLocation)
             .Where(c => !_context.Reservations.Any(r =>
                 r.CarId == c.Id &&
                 r.Status != ReservationStatus.Cancelled &&
-                r.PickupDate <= request.EndDate &&
-                r.ReturnDate >= request.StartDate
+                r.PickupDate <= requestReturnDate &&
+                r.ReturnDate >= pickupDate
             ));
         
         if (request.LocationId.HasValue)

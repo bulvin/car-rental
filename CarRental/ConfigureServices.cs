@@ -1,4 +1,5 @@
 using System.Reflection;
+using CarRental.Common;
 using CarRental.Data;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -27,5 +28,7 @@ public static class ConfigureServices
         {
             options.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
         });
+
+        builder.Services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext>());
     }
 }
