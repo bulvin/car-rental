@@ -11,10 +11,16 @@ public class CarConfiguration : IEntityTypeConfiguration<Car>
         builder.ToTable("Cars");
         
         builder.HasKey(c => c.Id);
-        
-        builder.Property(c => c.Model)
-            .HasMaxLength(30)
-            .IsRequired();
+
+        builder.OwnsOne<CarModel>(c => c.Model, m =>
+        {
+            m.Property(carModel => carModel.Name)
+                .HasMaxLength(30)
+                .IsRequired();
+
+            m.Property(carModel => carModel.PassengerCapacity)
+                .IsRequired();
+        });
 
         builder.Property(c => c.Color)
             .HasMaxLength(30)
@@ -24,6 +30,7 @@ public class CarConfiguration : IEntityTypeConfiguration<Car>
             .IsRequired();
         
         builder.Property(c => c.DailyRate)
+            .HasColumnType("decimal(10,2)")
             .IsRequired();
         
         builder.HasOne(c => c.CurrentLocation)
