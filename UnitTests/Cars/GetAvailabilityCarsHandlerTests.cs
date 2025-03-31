@@ -58,7 +58,7 @@ public class GetAvailabilityCarsHandlerTests
                 CarId = carId1, 
                 PickupDate = startDate.AddHours(-1), 
                 ReturnDate = endDate.AddHours(1), 
-                Status = ReservationStatus.InProgress 
+                Status = ReservationStatus.Reserved
             }
         }.AsQueryable();
 
