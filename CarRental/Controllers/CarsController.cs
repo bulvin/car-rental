@@ -1,4 +1,5 @@
 using CarRental.Features.Cars.GetAvailabilityCars;
+using CarRental.Features.Cars.GetCarDetails;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -21,5 +22,12 @@ public class CarsController
     {
         var availableCars = await _mediator.Send(query);
         return TypedResults.Ok(availableCars);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<Ok<CarDetailsResponse>> GetCarDetails(Guid id)
+    {
+        var carDetails = await _mediator.Send(new GetCarDetailsQuery(id));
+        return TypedResults.Ok(carDetails);
     }
 }
