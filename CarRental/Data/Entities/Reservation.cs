@@ -14,13 +14,12 @@ public class Reservation : IEntity
     public DateTime PickupDate { get; set; }
     public DateTime ReturnDate { get; set; }
     public decimal TotalCost { get; set; }
-    public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
+    public ReservationStatus Status { get; set; } = ReservationStatus.Reserved;
 }
 
 public enum ReservationStatus
 {
-    Pending,
-    InProgress,
+    Reserved,
     Completed,
     Cancelled
 }
