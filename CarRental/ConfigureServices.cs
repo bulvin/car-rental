@@ -2,6 +2,7 @@ using System.Reflection;
 using CarRental.Common;
 using CarRental.Data;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRental;
@@ -16,6 +17,7 @@ public static class ConfigureServices
         builder.AddDatabase();
         
         builder.Services.AddValidatorsFromAssembly(Assembly);
+        builder.Services.AddFluentValidationAutoValidation();
         builder.Services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(Assembly);
