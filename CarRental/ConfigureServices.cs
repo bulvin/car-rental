@@ -3,7 +3,6 @@ using CarRental.Common;
 using CarRental.Common.Exceptions;
 using CarRental.Data;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRental;
@@ -24,6 +23,7 @@ public static class ConfigureServices
             cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+        builder.AddCors();
         builder.Services.AddProblemDetails();
     }
     
@@ -35,5 +35,20 @@ public static class ConfigureServices
         });
 
         builder.Services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext>());
+    }
+    
+    private static void AddCors(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowFrontendApp",
+                b =>
+                {
+                    b
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+        });
     }
 }

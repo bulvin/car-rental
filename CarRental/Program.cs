@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
+using System.Threading.Channels;
 using CarRental;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,11 @@ builder.Services.AddControllers()
     });
         
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(o =>
+{
+    o.SwaggerDoc("v1", new OpenApiInfo { Title = "CAR RENTAL API", Version = "v1" });
+    o.EnableAnnotations();
+});
 
 
 builder.AddServices();
@@ -22,9 +28,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("AllowFrontendApp");
 app.UseHttpsRedirection();
 app.MapControllers();
 app.UseExceptionHandler();
+
 await app.Configure();
 app.Run();
