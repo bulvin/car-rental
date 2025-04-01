@@ -39,7 +39,7 @@ public class ReservationController : ControllerBase
         Description = "Calculates and returns the total cost for a given reservation based on provided parameters.")]
     [SwaggerResponse(200, "Total reservation cost", typeof(ReservationCostResponse))]
     [SwaggerResponse(400, "Invalid request data")]
-    [ProducesResponseType(typeof(decimal), 200)]
+    [ProducesResponseType(typeof(ReservationCostResponse), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult> CalculateReservationCost([FromQuery] CalculateTotalCostQuery query)
     {
