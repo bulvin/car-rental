@@ -4,14 +4,18 @@ using CarRental.Common.Exceptions;
 using CarRental.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CarRental.Features.Reservations;
+namespace CarRental.Features.Reservations.CreateReservation;
 
 public record CreateReservationCommand(
     Guid CarId, 
     Guid PickupLocationId,
     Guid ReturnLocationId,
     DateTime PickupDate,
-    DateTime ReturnDate
+    DateTime ReturnDate,
+    string FirstName,
+    string LastName,
+    string Email,
+    string? PhoneNumber = null
     ) : ICommand<Guid>;
 
 public class CreateReservation : ICommandHandler<CreateReservationCommand, Guid>
@@ -25,7 +29,7 @@ public class CreateReservation : ICommandHandler<CreateReservationCommand, Guid>
     
     public async Task<Guid> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
     {
-        var (carId, pickupLocationId, returnLocationId, pickupDate, returnDate) = request;
+        var (carId, pickupLocationId, returnLocationId, pickupDate, returnDate, firstName, lastName, email, phoneNumber) = request;
         var pickupDateUtc = pickupDate.ToUniversalTime().RoundToFullHour();
         var returnDateUtc = returnDate.ToUniversalTime().RoundToFullHour();
         
@@ -34,6 +38,15 @@ public class CreateReservation : ICommandHandler<CreateReservationCommand, Guid>
 
         if (!returnLocationExists)
             throw new LocationNotFoundException(returnLocationId);
+        
+        var isCarAvailable = !await _context.Reservations.AnyAsync(r => 
+                r.CarId == carId && 
+                r.Status == ReservationStatus.Reserved &&
+                (r.PickupDate <= returnDateUtc && r.ReturnDate >= pickupDateUtc),
+            cancellationToken);
+
+        if (!isCarAvailable)
+            throw new CarReservationOverlapException(carId, pickupDateUtc, returnDateUtc);
         
         var car = await _context.Cars
             .Where(c => c.Id == carId)
@@ -47,22 +60,29 @@ public class CreateReservation : ICommandHandler<CreateReservationCommand, Guid>
 
         if (car.CurrentLocationId != pickupLocationId)
             throw new LocationNotFoundException(pickupLocationId);
-       
-        var isCarAvailable = !await _context.Reservations.AnyAsync(r => 
-                r.CarId == carId && 
-                r.Status == ReservationStatus .Reserved &&
-                (r.PickupDate <= returnDateUtc && r.ReturnDate >= pickupDateUtc),
-            cancellationToken);
-
-        if (!isCarAvailable)
-            throw new CarReservationOverlapException(carId, pickupDateUtc, returnDateUtc);
         
         var days = Math.Max(1, (int)Math.Ceiling((returnDateUtc - pickupDateUtc).TotalDays));
         var totalCost = car.DailyRate * days;
         
+        var customer = await _context.Customers
+            .FirstOrDefaultAsync(c => c.Email == request.Email, cancellationToken);
+
+        if (customer is null)
+        {
+            customer = new Customer
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                PhoneNumber = phoneNumber ?? string.Empty,
+            };
+            _context.Customers.Add(customer);
+        }
+        
         var reservation = new Reservation
         {
-            CustomerId = new Guid("43962baa-64b3-4997-af15-f92e760c285a"),
+            CustomerId = customer.Id,
+            ReservationNumber = Reservation.GenerateReservationNumber(),
             CarId = carId,
             PickupLocationId = pickupLocationId,
             ReturnLocationId = returnLocationId,

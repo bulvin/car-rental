@@ -1,7 +1,7 @@
 using CarRental.Common;
 using FluentValidation;
 
-namespace CarRental.Features.Reservations;
+namespace CarRental.Features.Reservations.CreateReservation;
 
 public class CreateReservationValidator : AbstractValidator<CreateReservationCommand>
 {

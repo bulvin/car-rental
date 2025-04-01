@@ -1,5 +1,7 @@
 using CarRental.Features.Reservations;
 using CarRental.Features.Reservations.CalculateTotalCost;
+using CarRental.Features.Reservations.CreateReservation;
+using CarRental.Features.Reservations.GetReservationDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,5 +30,12 @@ public class ReservationController : ControllerBase
     {
         var cost = await _mediator.Send(query);
         return Ok(cost);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult> GetCarReservation([FromRoute] string id)
+    {
+        var reservation = await _mediator.Send(new GetReservationDetailsQuery(id));
+        return Ok(reservation);
     }
 }
