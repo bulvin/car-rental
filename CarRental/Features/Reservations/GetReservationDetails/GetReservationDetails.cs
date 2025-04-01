@@ -1,6 +1,7 @@
 using CarRental.Common;
 using CarRental.Common.CQRS;
 using CarRental.Common.Exceptions;
+using CarRental.Common.Exceptions.Reservations;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.Features.Reservations.GetReservationDetails;

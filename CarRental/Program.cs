@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.Text.Json.Serialization;
 using CarRental;
 
@@ -13,6 +12,7 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 builder.AddServices();
 
 var app = builder.Build();
@@ -25,5 +25,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseExceptionHandler();
 await app.Configure();
 app.Run();
