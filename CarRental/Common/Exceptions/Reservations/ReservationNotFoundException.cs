@@ -1,6 +1,7 @@
 using System.Net;
+using CarRental.Common.Exceptions.Cars;
 
-namespace CarRental.Common.Exceptions;
+namespace CarRental.Common.Exceptions.Reservations;
 
 public class ReservationNotFoundException : CarRentalException
 {

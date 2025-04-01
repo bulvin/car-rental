@@ -1,5 +1,6 @@
 using System.Reflection;
 using CarRental.Common;
+using CarRental.Common.Exceptions;
 using CarRental.Data;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -17,11 +18,13 @@ public static class ConfigureServices
         builder.AddDatabase();
         
         builder.Services.AddValidatorsFromAssembly(Assembly);
-        builder.Services.AddFluentValidationAutoValidation();
         builder.Services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(Assembly);
+            cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
+        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+        builder.Services.AddProblemDetails();
     }
     
     private static void AddDatabase(this WebApplicationBuilder builder)

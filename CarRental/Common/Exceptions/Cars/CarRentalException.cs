@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace CarRental.Common.Exceptions;
+namespace CarRental.Common.Exceptions.Cars;
 
 public abstract class CarRentalException : Exception
 {
