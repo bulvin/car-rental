@@ -156,7 +156,7 @@ namespace CarRental.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.OwnsOne("CarRental.Data.Entities.CarModel", "Model", b1 =>
+                    b.OwnsOne("CarRental.Data.Entities.Car.Model#CarRental.Data.Entities.CarModel", "Model", b1 =>
                         {
                             b1.Property<Guid>("CarId")
                                 .HasColumnType("uuid");
