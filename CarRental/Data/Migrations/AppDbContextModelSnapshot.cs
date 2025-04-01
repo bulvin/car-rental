@@ -118,6 +118,10 @@ namespace CarRental.Data.Migrations
                     b.Property<Guid>("PickupLocationId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("ReservationNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("ReturnDate")
                         .HasColumnType("timestamp with time zone");
 
